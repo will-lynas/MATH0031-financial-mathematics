@@ -62,7 +62,7 @@ def _(mo, alt, np, final_positions, slider):
         # Create histogram
         bars = alt.Chart(alt.Data(values=hist_data)).mark_bar(
             color='#0335fc',
-            size=15
+            size=10
         ).encode(
             x=alt.X('x:Q', title='Final Position', scale=alt.Scale(domain=[-4, 4])),
             y=alt.Y('density:Q', title='Density', scale=alt.Scale(domain=[0, y_max]))
@@ -76,8 +76,8 @@ def _(mo, alt, np, final_positions, slider):
         
         # Combine the plots
         combined_plot = (bars + line).properties(
-            width=600,
-            height=400,
+            width=400,
+            height=300,
             title=f'Distribution of Final Positions (n={slider.value})'
         )
         
@@ -106,8 +106,8 @@ def _(mo, alt, np, walks):
             y=alt.Y('position:Q', title='Position'),
             color=alt.Color('walk:N', title='Random Walk')
         ).properties(
-            width=600,
-            height=400,
+            width=400,
+            height=300,
             title='Sample Random Walks'
         )
         return chart
