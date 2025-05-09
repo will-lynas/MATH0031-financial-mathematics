@@ -46,6 +46,9 @@ def _(mo, alt, np, final_positions, slider):
         x = np.linspace(-4, 4, 100)  # Changed to fixed range
         normal_pdf = 1/(sigma * np.sqrt(2*np.pi)) * np.exp(-(x-mu)**2/(2*sigma**2))
         
+        # Calculate y-axis limit (1.5 times the max height of standard normal)
+        y_max = 1.5 / (sigma * np.sqrt(2*np.pi))
+        
         # Create data dictionaries for both plots
         hist_data = [
             {"x": float(x), "density": float(y)} 
@@ -64,13 +67,13 @@ def _(mo, alt, np, final_positions, slider):
             size=15
         ).encode(
             x=alt.X('x:Q', title='Final Position', scale=alt.Scale(domain=[-4, 4])),
-            y=alt.Y('density:Q', title='Density')
+            y=alt.Y('density:Q', title='Density', scale=alt.Scale(domain=[0, y_max]))
         )
         
         # Create normal distribution line
         line = alt.Chart(alt.Data(values=normal_data)).mark_line(color='red').encode(
             x=alt.X('x:Q', scale=alt.Scale(domain=[-4, 4])),
-            y='density:Q'
+            y=alt.Y('density:Q', scale=alt.Scale(domain=[0, y_max]))
         )
         
         # Combine the plots
