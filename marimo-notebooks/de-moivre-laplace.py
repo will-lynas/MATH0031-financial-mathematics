@@ -14,7 +14,7 @@ def _():
 
 @app.cell
 def _(mo):
-    slider = mo.ui.slider(10, 1000, step=5, value=50, label="n")
+    slider = mo.ui.slider(10, 1000, step=5, value=100, label="n")
     slider
     return (slider,)
 
