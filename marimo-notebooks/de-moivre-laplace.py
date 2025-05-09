@@ -39,21 +39,20 @@ def _(mo, alt, np, final_positions, slider):
         # Calculate histogram data
         hist, bin_edges = np.histogram(final_positions, bins='auto', density=True)
         bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
-        
-        # Calculate theoretical normal distribution
-        mu = 0  # theoretical mean
-        sigma = 1  # theoretical standard deviation
-        x = np.linspace(-4, 4, 100)  # Changed to fixed range
-        normal_pdf = 1/(sigma * np.sqrt(2*np.pi)) * np.exp(-(x-mu)**2/(2*sigma**2))
-        
-        # Calculate y-axis limit (1.5 times the max height of standard normal)
-        y_max = 1.5 / (sigma * np.sqrt(2*np.pi))
-        
-        # Create data dictionaries for both plots
+
         hist_data = [
             {"x": float(x), "density": float(y)} 
             for x, y in zip(bin_centers, hist)
         ]
+        
+        # Calculate theoretical normal distribution
+        mu = 0  # theoretical mean
+        sigma = 1  # theoretical standard deviation
+        x = np.linspace(-4, 4, 100)
+        normal_pdf = 1/(sigma * np.sqrt(2*np.pi)) * np.exp(-(x-mu)**2/(2*sigma**2))
+        
+        # Calculate y-axis limit (1.5 times the max height of standard normal)
+        y_max = 1.5 / (sigma * np.sqrt(2*np.pi))
         
         normal_data = [
             {"x": float(x), "density": float(y)} 
