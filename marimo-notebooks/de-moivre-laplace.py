@@ -34,35 +34,6 @@ def _(np, slider):
 
 
 @app.cell
-def _(alt, np, walks):
-    def plot_walks(num_walks_to_show=5):
-        n_steps = walks.shape[1]
-        x_values = np.arange(n_steps)
-        plot_data = []
-        
-        for i in range(num_walks_to_show):
-            plot_data.extend([
-                {"step": float(x), "position": float(y), "walk": f"Walk {i+1}"}
-                for x, y in zip(x_values, walks[i])
-            ])
-        
-        chart = alt.Chart(alt.Data(values=plot_data)).mark_line().encode(
-            x=alt.X('step:Q', title='Step'),
-            y=alt.Y('position:Q', title='Position'),
-            color=alt.Color('walk:N', title='Random Walk')
-        ).properties(
-            width=600,
-            height=400,
-            title='Sample Random Walks'
-        )
-        return chart
-    
-    walks_plot = plot_walks()
-    walks_plot
-    return (walks_plot,)
-
-
-@app.cell
 def _(alt, np, final_positions, slider):
     def create_distribution_plot():
         # Calculate histogram data
@@ -110,6 +81,36 @@ def _(alt, np, final_positions, slider):
     distribution_plot = create_distribution_plot()
     distribution_plot
     return (distribution_plot,)
+
+
+@app.cell
+def _(alt, np, walks):
+    def plot_walks(num_walks_to_show=5):
+        n_steps = walks.shape[1]
+        x_values = np.arange(n_steps)
+        plot_data = []
+        
+        for i in range(num_walks_to_show):
+            plot_data.extend([
+                {"step": float(x), "position": float(y), "walk": f"Walk {i+1}"}
+                for x, y in zip(x_values, walks[i])
+            ])
+        
+        chart = alt.Chart(alt.Data(values=plot_data)).mark_line().encode(
+            x=alt.X('step:Q', title='Step'),
+            y=alt.Y('position:Q', title='Position'),
+            color=alt.Color('walk:N', title='Random Walk')
+        ).properties(
+            width=600,
+            height=400,
+            title='Sample Random Walks'
+        )
+        return chart
+    
+    walks_plot = plot_walks()
+    walks_plot
+    return (walks_plot,)
+
 
 if __name__ == "__main__":
     app.run()
