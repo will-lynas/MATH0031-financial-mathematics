@@ -58,7 +58,7 @@ def _(alt, np, final_positions, slider):
         ]
         
         # Create histogram
-        bars = alt.Chart(alt.Data(values=hist_data)).mark_bar(opacity=0.5).encode(
+        bars = alt.Chart(alt.Data(values=hist_data)).mark_bar(opacity=0.5, color='#0335fc').encode(
             x=alt.X('x:Q', title='Final Position'),
             y=alt.Y('density:Q', title='Density')
         )
