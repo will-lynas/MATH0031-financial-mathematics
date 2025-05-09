@@ -34,7 +34,7 @@ def _(np, slider):
 
 
 @app.cell
-def _(alt, np, final_positions, slider):
+def _(mo, alt, np, final_positions, slider):
     def create_distribution_plot():
         # Calculate histogram data
         hist, bin_edges = np.histogram(final_positions, bins='auto', density=True)
@@ -83,12 +83,12 @@ def _(alt, np, final_positions, slider):
         return combined_plot
     
     distribution_plot = create_distribution_plot()
-    distribution_plot
+    mo.ui.altair_chart(distribution_plot)
     return (distribution_plot,)
 
 
 @app.cell
-def _(alt, np, walks):
+def _(mo, alt, np, walks):
     def plot_walks(num_walks_to_show=5):
         n_steps = walks.shape[1]
         x_values = np.arange(n_steps)
@@ -112,7 +112,7 @@ def _(alt, np, walks):
         return chart
     
     walks_plot = plot_walks()
-    walks_plot
+    mo.ui.altair_chart(walks_plot)
     return (walks_plot,)
 
 
