@@ -43,7 +43,7 @@ def _(mo, alt, np, final_positions, slider):
         # Calculate theoretical normal distribution
         mu = 0  # theoretical mean
         sigma = 1  # theoretical standard deviation
-        x = np.linspace(min(final_positions), max(final_positions), 100)
+        x = np.linspace(-4, 4, 100)  # Changed to fixed range
         normal_pdf = 1/(sigma * np.sqrt(2*np.pi)) * np.exp(-(x-mu)**2/(2*sigma**2))
         
         # Create data dictionaries for both plots
@@ -63,13 +63,13 @@ def _(mo, alt, np, final_positions, slider):
             opacity=0.8,
             size=15
         ).encode(
-            x=alt.X('x:Q', title='Final Position'),
+            x=alt.X('x:Q', title='Final Position', scale=alt.Scale(domain=[-4, 4])),
             y=alt.Y('density:Q', title='Density')
         )
         
         # Create normal distribution line
         line = alt.Chart(alt.Data(values=normal_data)).mark_line(color='red').encode(
-            x='x:Q',
+            x=alt.X('x:Q', scale=alt.Scale(domain=[-4, 4])),
             y='density:Q'
         )
         
