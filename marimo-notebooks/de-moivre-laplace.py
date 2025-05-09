@@ -37,7 +37,7 @@ def _(np, slider):
 def _(mo, alt, np, final_positions, slider):
     def create_distribution_plot():
         # Calculate histogram data
-        hist, bin_edges = np.histogram(final_positions, bins='auto', density=True)
+        hist, bin_edges = np.histogram(final_positions, bins=50, density=True)
         bin_centers = (bin_edges[:-1] + bin_edges[1:]) / 2
         
         # Calculate theoretical normal distribution
@@ -64,7 +64,7 @@ def _(mo, alt, np, final_positions, slider):
         bars = alt.Chart(alt.Data(values=hist_data)).mark_bar(
             color='#0335fc',
             opacity=0.8,
-            size=15
+            size=8
         ).encode(
             x=alt.X('x:Q', title='Final Position', scale=alt.Scale(domain=[-4, 4])),
             y=alt.Y('density:Q', title='Density', scale=alt.Scale(domain=[0, y_max]))
